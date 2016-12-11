@@ -1,5 +1,5 @@
 # AndroidModularSample
-A sample Android application to demonstrate how to build screens as fully independant modules.
+A sample Android application to demonstrate how to build screens as fully independent modules.
 
 It relies on a Finite State Machine ([EasyFlow](https://github.com/Beh01der/EasyFlow)), to handle screen as states and trigger/consume events.
 Events allows the application to handle navigation between screens.
@@ -8,7 +8,7 @@ It also shows how to use dependency injection (via [Dagger 2](https://google.git
 
 This way:
 
-- modules are fully independant
+- modules are fully independent
 - modules declare the dependencies they need
 - modules declare the states they correspond to
 - modules declare the events that can be triggered
