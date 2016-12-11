@@ -1,4 +1,7 @@
 # AndroidModularSample
+
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-AndroidModularSample-brightgreen.svg?style=flat)](http://android-arsenal.com/details/3/4810)
+
 A sample Android application to demonstrate how to build screens as fully independent modules.
 
 It relies on a Finite State Machine ([EasyFlow](https://github.com/Beh01der/EasyFlow)), to handle screen as states and trigger/consume events.
