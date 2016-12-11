@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">second</string>
+    <string name="welcome">Current date: %1$s,\nWelcome %2$s!</string>
+</resources>

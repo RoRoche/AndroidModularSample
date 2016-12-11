@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">first</string>
+
+    <string name="login">Login</string>
+    <string name="start">Start</string>
+    <string name="login_error">Please provide a login</string>
+</resources>
