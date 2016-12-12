@@ -4,9 +4,9 @@
 
 A sample Android application to demonstrate how to build screens as fully independent modules.
 
-It relies on a Finite State Machine ([EasyFlow](https://github.com/Beh01der/EasyFlow)), to handle screen as states and trigger/consume events.
-Events allows the application to handle navigation between screens.
-The global context used by the FSM is used to pass arguments as a Bundle.
+It relies on a Finite State Machine ([EasyFlow](https://github.com/Beh01der/EasyFlow)), to handle screens as states and trigger/consume events.
+Events allow the application to handle navigation between screens.
+The global context of the FSM is used to pass arguments as a Bundle.
 It also shows how to use dependency injection (via [Dagger 2](https://google.github.io/dagger/) for example) in modules.
 
 This way:
@@ -15,9 +15,9 @@ This way:
 - modules declare the dependencies they need
 - modules declare the states they correspond to
 - modules declare the events that can be triggered
-- the hosting application set up the states it uses (i.e., "screens")
-- the hosting application set up how to navigation between states (with events)
-- the hosting application set up the dependency injection mechanism
+- the hosting application sets up the states it uses (i.e., "screens")
+- the hosting application sets up how to navigation between states (with events)
+- the hosting application sets up the dependency injection mechanism
 
 ## Conclusion
 
