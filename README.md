@@ -4,8 +4,6 @@
 
 # FSM on Android: how to reach app modularity?
 
-[TOC]
-
 ## Introduction
 
 In this document, I want to explain how I came with a FSM as a solution to make Android application development fully-modular. That's why it's organized as steps, describing the journey I made, from discovering the [EasyFlow](https://github.com/Beh01der/EasyFlow) FSM to using it for modularity purpose.
@@ -52,6 +50,8 @@ graph LR
     Content -->|on refresh| Loading
     Error -->|on retry| Loading
 ```
+
+![View states diagram](https://raw.githubusercontent.com/RoRoche/AndroidModularSample/master/doc/diagrams/view_states.mmd.png)
 
 The associated XML layout is not very relevant at this point. But just consider the following declarations in the `Activity` are valid:
 
@@ -231,6 +231,8 @@ graph LR
     WaitingForLogin -->|on valid login provided| ShowingWelcome
     ShowingWelcome -->|on back pressed| WaitingForLogin
 ```
+
+![App navigation diagram](https://raw.githubusercontent.com/RoRoche/AndroidModularSample/master/doc/diagrams/app_navigation.mmd.png)
 
 Very simple in fact. So it's time to define our first screen ("waiting for login"):
 
