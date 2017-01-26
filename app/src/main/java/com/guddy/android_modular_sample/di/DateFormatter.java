@@ -11,16 +11,13 @@ public final class DateFormatter implements IDateFormatter {
 
     //region Constants
     private static final String DATE_FORMAT = "dd/MM/yyyy";
-    //endregion
-
-    //region Fields
-    private final SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat(DATE_FORMAT);
+    private static final SimpleDateFormat sSimpleDateFormat = new SimpleDateFormat(DATE_FORMAT);
     //endregion
 
     //region IDateFormatter
     @Override
     public String format(@NonNull final Date poDate) {
-        return mSimpleDateFormat.format(poDate);
+        return sSimpleDateFormat.format(poDate);
     }
     //endregion
 }

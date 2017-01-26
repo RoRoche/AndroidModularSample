@@ -30,45 +30,43 @@ public class MainActivity extends AppCompatActivity {
 
     //region Lifecycle
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onCreate(final Bundle poSavedInstanceState) {
+        super.onCreate(poSavedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final ViewGroup container = (ViewGroup) findViewById(R.id.ViewGroup_Container);
-        mRouter = Conductor.attachRouter(this, container, savedInstanceState);
+        final ViewGroup loContainer = (ViewGroup) findViewById(R.id.ViewGroup_Container);
+        mRouter = Conductor.attachRouter(this, loContainer, poSavedInstanceState);
 
         mFlow =
-                from(FirstController.States.WAITING_LOGIN)
-                        .transit(
-                                on(FirstController.Events.loginProvided)
-                                        .to(SecondController.States.SHOWING_WELCOME)
-                                        .transit(
-                                                on(Events.backClicked)
-                                                        .to(FirstController.States.WAITING_LOGIN)
-                                        )
+                from(FirstController.States.WAITING_LOGIN).transit(
+                        on(FirstController.Events.loginProvided).to(SecondController.States.SHOWING_WELCOME).transit(
+                                on(Events.backPressed).to(FirstController.States.WAITING_LOGIN)
                         )
-                        .executor(new UiThreadExecutor());
+                );
 
-        mFlow
-                .whenEnter(FirstController.States.WAITING_LOGIN, (final FlowContext poContext) -> {
-                    if (!mRouter.hasRootController()) {
-                        mRouter.setRoot(RouterTransaction.with(new FirstController(poContext)));
-                    }
-                })
-                .whenEnter(SecondController.States.SHOWING_WELCOME, (final FlowContext poContext) -> {
-                    final SecondController loController = new SecondController(FirstController.getLogin(poContext));
+        mFlow.executor(new UiThreadExecutor());
 
-                    AndroidModularApplication.getInstance().getComponentSecondController().inject(loController);
+        mFlow.whenEnter(FirstController.States.WAITING_LOGIN, (final FlowContext poContext) -> {
+            if (!mRouter.hasRootController()) {
+                mRouter.setRoot(RouterTransaction.with(new FirstController(poContext)));
+            }
+        });
 
-                    final RouterTransaction loTransaction = RouterTransaction.with(loController)
-                            .pushChangeHandler(new FadeChangeHandler())
-                            .popChangeHandler(new FadeChangeHandler());
+        mFlow.whenEnter(SecondController.States.SHOWING_WELCOME, (final FlowContext poContext) -> {
+            final SecondController loController = new SecondController(FirstController.getLogin(poContext));
 
-                    mRouter.pushController(loTransaction);
-                })
-                .whenLeave(SecondController.States.SHOWING_WELCOME, (final FlowContext poContext) -> {
-                    poContext.args().clear();
-                });
+            AndroidModularApplication.getInstance().getComponentSecondController().inject(loController);
+
+            final RouterTransaction loTransaction = RouterTransaction.with(loController)
+                    .pushChangeHandler(new FadeChangeHandler())
+                    .popChangeHandler(new FadeChangeHandler());
+
+            mRouter.pushController(loTransaction);
+        });
+
+        mFlow.whenLeave(SecondController.States.SHOWING_WELCOME, (final FlowContext poContext) -> {
+            poContext.args().clear();
+        });
 
         mFlowContext = new FlowContext();
         mFlow.start(mFlowContext);
@@ -77,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         try {
-            mFlowContext.trigger(Events.backClicked);
+            mFlowContext.trigger(Events.backPressed);
         } catch (final LogicViolationError poLogicViolationError) {
             // does nothing
         }
@@ -90,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
 
     //region FSM
     public enum Events implements EventEnum {
-        backClicked
+        backPressed
     }
     //endregion
 }

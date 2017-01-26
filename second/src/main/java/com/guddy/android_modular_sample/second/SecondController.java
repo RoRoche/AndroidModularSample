@@ -41,7 +41,7 @@ public class SecondController extends Controller {
     @NonNull
     @Override
     protected View onCreateView(@NonNull final LayoutInflater poInflater, @NonNull final ViewGroup poContainer) {
-        Preconditions.checkNotNull(mDateFormatter, "Field mDateFormatter is null, did you miss to inject this with your dependency injection mechanism?");
+        Preconditions.checkNotNull(mDateFormatter, "Field mDateFormatter is null, did you miss to inject it with your dependency injection mechanism?");
 
         final View loView = poInflater.inflate(R.layout.second_controller, poContainer, false);
         final TextView loTextViewWelcome = (TextView) loView.findViewById(R.id.SecondController_TextView_Welcome);

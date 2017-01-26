@@ -1,0 +1,6 @@
+graph LR
+    Idle -->|on first load| Loading
+    Loading -->|on error| Error
+    Loading -->|on success| Content
+    Content -->|on refresh| Loading
+    Error -->|on retry| Loading
