@@ -7,10 +7,12 @@
 In this document, I want to explain how I came with a FSM as a solution to make Android application development fully-modular. That's why it's organized as steps, describing the journey I made, from discovering the [EasyFlow](https://github.com/Beh01der/EasyFlow) FSM to using it for modularity purpose.
 
 When talking about modularity, all developers achieve a standard definition:
+
 - divide a program into separated sub-programs (called modules) according to the features to implement,
 - group similar functions in the same unit of code.
 
 Advantages :
+
 - ease incremental builds and deliveries,
 - module is unit-testable,
 - modules can be added, modified or removed without any impact on another,
@@ -23,12 +25,14 @@ According to this paradigm, the flow of the program is determined by events (use
 Finally, given in mind my final goal, I remembered the terms used by the Android SDK: when an `Activity` is destroyed, it talks about saving and restoring the "instance state". And all became clear for me: a "screen" can be considered as a "state" of the application, and navigation is somehow a finite state machine.
 
 A finite state machine (FMS) is defined by:
+
 - sequential logic circuits,
 - finite number of states,
 - one state at a time (the _current state_),
 - change from one state to another by triggering an event (a _transition_).
 
 For Java, the implementation I've chosen is [EasyFlow](https://github.com/Beh01der/EasyFlow), because:
+
 - it's very simple to set up,
 - it's possible to define a global context (useful to pass arguments for example),
 - states are defined easily by declaring an _enum_ implementing `StateEnum`,
@@ -196,6 +200,7 @@ Following the same logic, I decided to set up 2 screens and manage navigation th
 First of all, it's important to focus on the Conductor library I chose to create a "View-based application".
 
 Here are many advantages of using this library:
+
 - Navigation concerns
 - Simple to build an instance of `Controller` and provide its dependencies (no args `Bundle` like when using `Fragment`)
 - Bring forward the `ViewController` concept
