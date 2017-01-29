@@ -482,7 +482,7 @@ public class ModuleSecondController {
 
     @Provides
     @Singleton
-    public IDateFormatter providesApplication() {
+    public IDateFormatter providesDateFormatter() {
         return new DateFormatter();
     }
 
