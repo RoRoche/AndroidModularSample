@@ -197,7 +197,7 @@ Following the same logic, I decided to set up 2 screens and manage navigation th
 
 ### Why [Conductor](https://github.com/bluelinelabs/Conductor)?
 
-First of all, it's important to focus on the Conductor livrary I chose to create a "View-based application".
+First of all, it's important to focus on the Conductor library I chose to create a "View-based application".
 
 Here are many advantages of using this library:
 - Navigation concerns
@@ -433,7 +433,7 @@ Finally, not so much complicated to. But we gain a clean design, with a perfect 
 
 ### Screns as independent modules
 
-You know what? It's the simplest step of this article: you just have to create two Android module ("first" and "second") thanks to the Android Studio wizard, drag and drop each piece of code in the corresponding module and that's it! So, not really: you have to create a "common" module to place the `FlowContext` and `UiThreadExecutor`. Both "first" and "second" module references this "common" module. Now, these modules can be referenced by the application successfully.
+You know what? It's the simplest step of this article: you just have to create two Android modules ("first" and "second") thanks to the Android Studio wizard, drag and drop each piece of code in the corresponding module and that's it! So, not really: you have to create a "common" module to place the `FlowContext` and `UiThreadExecutor`. Both "first" and "second" module references this "common" module. Now, these modules can be referenced by the application successfully.
 
 Too simple maybe? So let's  go a step further with the dependency injection topic.
 
@@ -548,14 +548,14 @@ RouterTransaction transaction = RouterTransaction.with(controller)
 mRouter.pushController(transaction);
 ```
 
-Eventually, we can add a preconditions into the second screen (defensive programming!) as follows:
+Eventually, we can add a precondition into the second screen (defensive programming!) as follows:
 
 ```java
 protected View onCreateView(LayoutInflater inflater, ViewGroup container) {
     Preconditions.checkNotNull(mDateFormatter, "Field mDateFormatter is null, did you miss to inject it with your dependency injection mechanism?");
 ```
 
-His way, you can inject any element you want (data store, user preferences, etc.). But the targetted screen remains agnostic, indepentend and highly configurable.
+This way, you can inject any element you want (data store, user preferences, etc.). But the targetted screen remains agnostic, indepentend and highly configurable.
 
 ## Conclusion
 
