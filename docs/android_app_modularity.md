@@ -4,25 +4,25 @@
 
 ## Introduction
 
-In this document, I want to explain how I came with a FSM as a solution to make Android application development fully-modular. That's why it's organized as steps, describing the journey I made, from discovering the [EasyFlow](https://github.com/Beh01der/EasyFlow) FSM to using it for modularity purpose.
+In this document, I want to explain how I ended up with a FSM as a solution to make Android application development fully-modular. That's why this document is organized in steps, describing the journey I made, from discovering the [EasyFlow](https://github.com/Beh01der/EasyFlow) FSM to using it for modularity purposes.
 
-When talking about modularity, all developers achieve a standard definition:
+When talking about modularity, all developers agree on a standard definition:
 
 - divide a program into separated sub-programs (called modules) according to the features to implement,
 - group similar functions in the same unit of code.
 
-Advantages :
+Advantages:
 
 - ease incremental builds and deliveries,
 - module is unit-testable,
-- modules can be added, modified or removed without any impact on another,
+- modules can be added, modified or removed without any impact on one another,
 - modules can be reused.
 
-But on some implementations, I didn't agree with some choices. For example, to navigate to the next screen, a module knows the name of this next screen thanks to a constant (from the hosting application or from the next module itself): this introduces a high-coupling that smells. To my mind, to be fully independant and agnostic, a module must not depend on a constant from anywhere else. At best, it exposes constants to be used by the hosting application. So, how to transit from one screen to the next one? The answer became clear: thanks to events. Indeed, events bring the needed abstraction: the module fires an event, the hosting application receives this event and acts according to it. This is how I discovered the "event-driven development" paradigm.
+But on some implementations, I didn't agree with some choices. For example, to navigate to the next screen, a module knows the name of this next screen thanks to a constant (from the hosting application or from the next module itself): this introduces a high-coupling that stinks. To my mind, to be fully independant and agnostic, a module must not depend on a constant from anywhere else. At best, it exposes constants to be used by the hosting application. So, how to transit from one screen to the next one? The answer became clear: thanks to events. Indeed, events bring the needed abstraction: the module fires an event, the hosting application receives this event and acts accordingly. This is how I discovered the "event-driven development" paradigm.
 
 According to this paradigm, the flow of the program is determined by events (user actions, network requests, sensors, timer, other threads, etc.). A specific piece of code (often called the "event listener" or "main loop" according to the language) detects that an event has occurred and performs the corresponding event "handler" (a callback method for example). The resulting computation changes the program state.
 
-Finally, given in mind my final goal, I remembered the terms used by the Android SDK: when an `Activity` is destroyed, it talks about saving and restoring the "instance state". And all became clear for me: a "screen" can be considered as a "state" of the application, and navigation is somehow a finite state machine.
+Finally, keeping in mind my final goal, I remembered the terms used by the Android SDK: when an `Activity` is destroyed, it mentions the fact of saving and restoring the "instance state". And all became clear for me: a "screen" can be considered as a "state" of the application, and navigation is somehow a finite state machine.
 
 A finite state machine (FMS) is defined by:
 
@@ -35,9 +35,9 @@ For Java, the implementation I've chosen is [EasyFlow](https://github.com/Beh01d
 
 - it's very simple to set up,
 - it's possible to define a global context (useful to pass arguments for example),
-- states are defined easily by declaring an _enum_ implementing `StateEnum`,
+- states are easily defined by declaring an _enum_ implementing `StateEnum`,
 - events are defined easily by declaring an _enum_ implementing `EventEnum`,
-- it provides a fluent API, which allows developer to declare the state machine in a clear and intelligible way (especially when combined with lambda expressions),
+- it provides a fluent API, which allows developers to declare the state machine in a clear and intelligible way (especially when combined with lambda expressions),
 - it's possible to declare callbacks to perform specific jobs when entering or leaving a state.
 
 ## FSM to manage view states
@@ -98,7 +98,7 @@ class FlowContext extends StatefulContext {
 }
 ```
 
-And then we can set up our FSM programmatically as follows:
+And then we can set up our FSM programmatically as exposed below:
 
 ```java
 EasyFlow<FlowContext> flow =
@@ -112,7 +112,7 @@ EasyFlow<FlowContext> flow =
         );
 ```
 
-And now we have to define what to perform when entering in a given state (with the help of the [retrolambda library](https://github.com/evant/gradle-retrolambda)):
+And now we have to define what to perform when entering a given state (with the help of the [retrolambda library](https://github.com/evant/gradle-retrolambda)):
 
 ```java
 flow.whenEnter(States.LOADING, (final StatefulContext context) -> startRequest());
@@ -128,7 +128,7 @@ mFlowContext = new FlowContext();
 flow.start(mFlowContext);
 ```
 
-The `Executor` instance allows developper to configure the type of thread used to perfom FSM operations (such as `whenEnter`). It looks like:
+The `Executor` instance allows developpers to configure the type of thread used to perfom FSM operations (such as `whenEnter`). It looks like:
 
 ```java
 public class UiThreadExecutor implements Executor {
@@ -167,7 +167,7 @@ private void startRequest() {
 }
 ```
 
-All that remains for me to do, therefore, is to implement methods listening for user interaction:
+All that remains for me to do, therefore, is to implement methods listening to user interactions:
 
 ```java
 @OnClick(R.id.ActivityMain_Button_Refresh)
@@ -211,7 +211,7 @@ Here are many advantages of using this library:
 
 The idea came to me that, in fact, a screen displayed to the user can be considered as a state of the application. I mean: for example, when presenting a screen to log in, it's a state "waiting for login", isn't it? And the event to change the app state is "valid login provided", isn't it?
 
-The idea is to use Conductor to define each screens, and use the `Activity` to monitor the interactions and navigation.
+The idea is to use Conductor to define each screen, and use the `Activity` to monitor the interactions and navigation.
 
 To keep each screen independant, I decided to use the `StatefulContext` implementation to hold arguments as a `Bundle` instance (pretty familiar in the Android world, isn't?). This way, the implementation looks like:
 
@@ -304,9 +304,9 @@ public class FirstController extends Controller {
 }
 ```
 
-This screen defines its available states and events. It's necessary to pass the `FlowContext` to its constructor. After some logical controls, this screen puts the provided value to the `FlowContext` arguments and triggers the `loginProvided` event. It's its single responsability: display an interface to fill a login value, control it and notify of the sequence success.
+This screen defines its available states and events. It's necessary to pass the `FlowContext` to its constructor. After some logical controls, this screen puts the provided value in the `FlowContext` arguments and triggers the `loginProvided` event. It's its single responsability: display an interface to fill a login value, control it and notify of the sequence success.
 
-The same way, let's define the second screen (for simplicity, it just displays the provided login):
+In the same way, let's define the second screen (for simplicity, it just displays the provided login):
 
 ```java
 public class SecondController extends Controller {
@@ -344,7 +344,7 @@ public class SecondController extends Controller {
 }
 ```
 
-Much more simple than the previous one! But now you should ask yourself "wait! where are these screens built? where is the navigation logic? where is the back event?". Here is my point: in the `Activity`. No screen should know how to transit from one state to another. They just have to define the state they represent and the events that can be triggered. Moreover, for me, this second screen must not know the "back pressed" event. It is not its responsability to navigate back. So, now, it's time to have a look at the `Activity`:
+Much simpler than the previous one! But now you should ask yourself "wait! where are these screens built? where is the navigation logic? where is the back event?". Here is my point: in the `Activity`. No screen should know how to transit from one state to another. They just have to define the state they represent and the events that can be triggered. Moreover, for me, this second screen must not know the "back pressed" event. It is not its responsability to navigate back. So, now, it's time to have a look at the `Activity`:
 
 ### Navigation between screens
 
@@ -422,24 +422,24 @@ public class MainActivity extends AppCompatActivity {
 }
 ```
 
-All the valuable job is done in the "whenEnter" sequences. Indeed, when entering in the first state, we create and push the first screen in the Conductor-specific `Router` instance. When entering in the second state, we build the second screen, pass the arguments to it and push it to the `Router` using a fading `RouterTransaction`.
+All the valuable jobs are done in the "whenEnter" sequences. Indeed, when entering the first state, we create and push the first screen to the Conductor-specific `Router` instance. When entering the second state, we build the second screen, pass the arguments to it and push it to the `Router` using a fading `RouterTransaction`.
 
-We override the `onBackPressed` and trigger the corresponding event to update the FSM current state. Then if the `Router` instance allows back at this level, this event is processed.
+We override the `onBackPressed` and trigger the corresponding event to update the FSM current state. Then if the `Router` instance allows "back" at this level, this event is processed.
 
-Finally, not so much complicated to. But we gain a clean design, with a perfect application of the "Single responsability principle". This Android application is now a valuable combination of "states" and "events".
+Finally, it is not that much complicated to do. But we gain a clean design, with a perfect application of the "Single responsability principle". This Android application is now a valuable combination of "states" and "events".
 
 ## FSM to make app modular
 
 ### Screns as independent modules
 
-You know what? It's the simplest step of this article: you just have to create two Android modules ("first" and "second") thanks to the Android Studio wizard, drag and drop each piece of code in the corresponding module and that's it! So, not really: you have to create a "common" module to place the `FlowContext` and `UiThreadExecutor`. Both "first" and "second" module reference this "common" module. Now, these modules can be referenced by the application successfully.
+You know what? It's the simplest step of this article: you just have to create two Android modules ("first" and "second") thanks to the Android Studio wizard, drag and drop each piece of code in the corresponding module and that's it! Well, not really: you have to create a "common" module to place the `FlowContext` and `UiThreadExecutor`. Both "first" and "second" modules reference this "common" module. Now, these modules can be successfully referenced by the application.
 
 Too simple maybe? So let's  go a step further with the dependency injection topic.
 
 ### DI ready: example with [Dagger 2](https://google.github.io/dagger/)
 
-Now you have an application divided into multiple screens (states) and responding to various events, you may ask how to define and provide the dependencies needed by your screens.
-To present you a solution, I use the Dagger 2 library.
+Now you have an application divided into multiple screens (states) and responding to various events, you may ask yourself how to define and provide the dependencies needed by your screens.
+To introduce a solution, I will use the Dagger 2 library.
 
 Suppose we want to display the current date on the second screen of our application. I'll start by defining an interface in the "second" module:
 
@@ -533,7 +533,7 @@ public class AndroidModularApplication extends Application {
 }
 ```
 
-And now, the final step takes place in the `MainActivity`, it's time to inject dependencies in the second screen. So we're back into the "whenEnter" sequence, when building the second screen:
+And now, the final step takes place in the `MainActivity`. It's time to inject dependencies in the second screen. So we're back to the "whenEnter" sequence when building the second screen:
 
 ```java
 SecondController controller = new SecondController(FirstController.getLogin(context));
@@ -547,14 +547,14 @@ RouterTransaction transaction = RouterTransaction.with(controller)
 mRouter.pushController(transaction);
 ```
 
-Eventually, we can add a precondition into the second screen (defensive programming!) as follows:
+Eventually, we can add a preconditions to the second screen (defensive programming!) as follows:
 
 ```java
 protected View onCreateView(LayoutInflater inflater, ViewGroup container) {
     Preconditions.checkNotNull(mDateFormatter, "Field mDateFormatter is null, did you miss to inject it with your dependency injection mechanism?");
 ```
 
-This way, you can inject any element you want (data store, user preferences, etc.). But the targetted screen remains agnostic, indepentend and highly configurable.
+This way, you can inject any element you want (data store, user preferences, etc.). But the targetted screen remains agnostic, independent and highly configurable.
 
 ## Conclusion
 
