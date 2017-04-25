@@ -2,6 +2,8 @@
 
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-AndroidModularSample-brightgreen.svg?style=flat)](http://android-arsenal.com/details/3/4810)
 
+![logo](https://raw.githubusercontent.com/RoRoche/AndroidModularSample/master/assets/logo.png)
+
 <!-- run the following command line: markdown-toc -i README.md -->
 
 <!-- toc -->
