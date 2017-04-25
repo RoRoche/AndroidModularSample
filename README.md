@@ -12,14 +12,15 @@
   * [Introduction](#introduction)
   * [FSM to manage view states](#fsm-to-manage-view-states)
   * [FSM to manage app navigation](#fsm-to-manage-app-navigation)
-    + [Why [Conductor](https://github.com/bluelinelabs/Conductor)?](#why-conductorhttpsgithubcombluelinelabsconductor)
+    + [Why Conductor?](#why-conductor)
     + ["Screens" as "States"](#screens-as-states)
     + [Navigation between screens](#navigation-between-screens)
   * [FSM to make app modular](#fsm-to-make-app-modular)
     + [Screns as independent modules](#screns-as-independent-modules)
-    + [DI ready: example with [Dagger 2](https://google.github.io/dagger/)](#di-ready-example-with-dagger-2httpsgooglegithubiodagger)
+    + [DI ready: example with Dagger 2](#di-ready-example-with-dagger-2)
   * [Conclusion](#conclusion)
   * [Bibliography](#bibliography)
+  * [Logo credits](#logo-credits)
 
 <!-- tocstop -->
 
@@ -220,9 +221,9 @@ Putting it all together and it works like a charm! Transitions are logical, flui
 
 Following the same logic, I decided to set up 2 screens and manage navigation thanks to a FSM.
 
-### Why [Conductor](https://github.com/bluelinelabs/Conductor)?
+### Why Conductor?
 
-First of all, it's important to focus on the Conductor library I chose to create a "View-based application".
+First of all, it's important to focus on the [Conductor library](https://github.com/bluelinelabs/Conductor) I chose to create a "View-based application".
 
 Here are many advantages of using this library:
 
@@ -463,10 +464,10 @@ You know what? It's the simplest step of this article: you just have to create t
 
 Too simple maybe? So let's  go a step further with the dependency injection topic.
 
-### DI ready: example with [Dagger 2](https://google.github.io/dagger/)
+### DI ready: example with Dagger 2
 
 Now you have an application divided into multiple screens (states) and responding to various events, you may ask yourself how to define and provide the dependencies needed by your screens.
-To introduce a solution, I will use the Dagger 2 library.
+To introduce a solution, I will use the [Dagger 2 library](https://google.github.io/dagger/).
 
 Suppose we want to display the current date on the second screen of our application. I'll start by defining an interface in the "second" module:
 
