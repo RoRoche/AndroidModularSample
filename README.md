@@ -2,6 +2,25 @@
 
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-AndroidModularSample-brightgreen.svg?style=flat)](http://android-arsenal.com/details/3/4810)
 
+<!-- run the following command line: markdown-toc -i README.md -->
+
+<!-- toc -->
+
+- [FSM on Android: how to reach app modularity?](#fsm-on-android-how-to-reach-app-modularity)
+  * [Introduction](#introduction)
+  * [FSM to manage view states](#fsm-to-manage-view-states)
+  * [FSM to manage app navigation](#fsm-to-manage-app-navigation)
+    + [Why [Conductor](https://github.com/bluelinelabs/Conductor)?](#why-conductorhttpsgithubcombluelinelabsconductor)
+    + ["Screens" as "States"](#screens-as-states)
+    + [Navigation between screens](#navigation-between-screens)
+  * [FSM to make app modular](#fsm-to-make-app-modular)
+    + [Screns as independent modules](#screns-as-independent-modules)
+    + [DI ready: example with [Dagger 2](https://google.github.io/dagger/)](#di-ready-example-with-dagger-2httpsgooglegithubiodagger)
+  * [Conclusion](#conclusion)
+  * [Bibliography](#bibliography)
+
+<!-- tocstop -->
+
 # FSM on Android: how to reach app modularity?
 
 ## Introduction
@@ -574,3 +593,7 @@ This way, you can inject any element you want (data store, user preferences, etc
 ## Bibliography
 
 - [Applications as State Machines](http://macoscope.com/blog/applications-as-state-machines/)
+
+## Logo credits
+
+Food graphic by <a href="http://www.flaticon.com/authors/freepik">Freepik</a> from <a href="http://www.flaticon.com/">Flaticon</a> is licensed under <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a>. Made with <a href="http://logomakr.com" title="Logo Maker">Logo Maker</a>
