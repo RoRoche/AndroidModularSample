@@ -48,7 +48,7 @@ According to this paradigm, the flow of the program is determined by events (use
 
 Finally, keeping in mind my final goal, I remembered the terms used by the Android SDK: when an `Activity` is destroyed, it mentions the fact of saving and restoring the "instance state". And all became clear for me: a "screen" can be considered as a "state" of the application, and navigation is somehow a finite state machine.
 
-A finite state machine (FMS) is defined by:
+A finite state machine (FSM) is defined by:
 
 - sequential logic circuits,
 - finite number of states,
