@@ -1,6 +1,7 @@
 # AndroidModularSample
 
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-AndroidModularSample-brightgreen.svg?style=flat)](http://android-arsenal.com/details/3/4810)
+[![Android Weekly](https://img.shields.io/badge/Android%20Weekly-%23266-green.svg)](http://androidweekly.net/issues/issue-266)
 
 ![logo](https://raw.githubusercontent.com/RoRoche/AndroidModularSample/master/assets/logo.png)
 
